@@ -102,7 +102,7 @@ def astar(maze, start, end):
 def main():
 
     ZigSerial = serial.Serial("/dev/pts/21",9600)
-    Zigreceive=serial.Serial("/dev/pts/29",9600)
+    Zigreceive=serial.Serial("/dev/pts/23",9600)
     
     maze = [[1, 1, 1, 0, 0, 0, 1, 1, 1],
             [1, 1, 1, 0, 0, 0, 1, 1, 1],
@@ -176,7 +176,7 @@ def main():
     new+='q'
        
     ZigSerial.flush()
-    ZigSerial.write("flgrffpqy"+"\n") 
+    ZigSerial.write("flfgrfllfqy"+"\n") 
     Zigreceive.flush()
     time.sleep(8)
     print(Zigreceive.read())

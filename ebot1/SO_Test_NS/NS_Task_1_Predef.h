@@ -36,4 +36,4 @@ void place(void);
 void init(void);
 void cleanUp(void);
 void threadStop(void);
-unsigned int getProxSensorDistance(void);
+unsigned int getProxSensorDistance(int);

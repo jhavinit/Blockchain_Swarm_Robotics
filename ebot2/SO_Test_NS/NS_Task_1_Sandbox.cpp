@@ -11,7 +11,7 @@
 
 
 void forward_wls(unsigned char node)
-{       int d;
+{       int d,dl,dr;
         int flag=0;
 	unsigned char leftSensor, rightSensor, midSensor;
 	int nodeReached = 0, i = 0;
@@ -22,10 +22,13 @@ void forward_wls(unsigned char node)
 		rightSensor = ADC_Conversion(3);
                 
                 
-        d=getProxSensorDistance();
-        if((d>0)&&(d<90))
+        d=getProxSensorDistance(0);
+        dl=getProxSensorDistance(1);
+        dr=getProxSensorDistance(2);
+        if(((d>0)&&(d<100))|((dl>0)&&(dl<100))|((dr>0)&&(dr<100)))
           {
           stop();
+          _delay_ms(3000);
           flag=1;
           }
         
@@ -63,7 +66,7 @@ void forward_wls(unsigned char node)
 				break;
 			}
 		}
-                else if(d==0)
+                else if((d==0)&&(dl==0)&&(dr==0))
                  {
                  if(flag)
                   flag=0;
