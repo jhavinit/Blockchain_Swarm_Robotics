@@ -103,6 +103,7 @@ def astar(maze, start, end):
 
 def vrep(s,e,place):
     global state
+    
     ZigSerial = serial.Serial("/dev/pts/20",9600)
     Zigreceive=serial.Serial("/dev/pts/22",9600)
     
@@ -196,7 +197,7 @@ def vrep(s,e,place):
              pick_path="l"
         elif ((inter_path[len(inter_path)-1]=='+y')):
              pick_path="rr"
-        elif ((inter_path[len(inter_path)-1]=='-y')):
+        elif ((inter_path[len(inter_path)-1]=='+x')):
              pick_path="r"
         ZigSerial.write(new+pick_path+"fglfrqy"+"\n") 
         del inter_path[:]
