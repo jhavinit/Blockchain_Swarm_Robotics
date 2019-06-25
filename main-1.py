@@ -76,6 +76,8 @@ while True:
             print('Added to blockchain; Picking and placing the box...')
             if vrep(current_location, box_number, 1) == 'h':
                 print('Box picked')
+                print('Box number:')
+                print(box_number)
                 current_location = box_number
                 if vrep(current_location, drop_location, 2) == 'h':
                     print('Box placed')
