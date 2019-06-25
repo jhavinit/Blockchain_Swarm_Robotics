@@ -112,11 +112,10 @@ def vrep(s,e,place):
             [0, 0, 0, 0],
             [0, 0, 0, 0], 
             ]
-    
+   
     start=(s/4,s%4)
     end=(e/4,e%4)
-    print(str(start)+"and  "+str(end))
- 
+    print(str(start)+"and " +str(end)+"\n")
     path_to_zigbee=[]
     path = astar(maze, start, end)
     print(path)
@@ -151,20 +150,24 @@ def vrep(s,e,place):
         if(inter_path[i]==inter_path[k]):
             path_to_zigbee.append('f')
         else:  
-           if((inter_path[i]=='-y') and (inter_path[k]=='+x')) or ((inter_path[i]=='+y') and (inter_path[k]=='-x')):
+           if((inter_path[i]=='-y') and (inter_path[k]=='+x')):
+              path_to_zigbee.append('ll')
+           if((inter_path[i]=='+y') and (inter_path[k]=='-x')):
               path_to_zigbee.append('l')
            if((inter_path[i]=='-y') and (inter_path[k]=='-x')) or ((inter_path[i]=='+y') and (inter_path[k]=='+x')):
               path_to_zigbee.append('r')
-           if((inter_path[i]=='+x') and (inter_path[k]=='-y')) or ((inter_path[i]=='-x') and (inter_path[k]=='+y')):
+           if((inter_path[i]=='+x') and (inter_path[k]=='-y')) :
+              path_to_zigbee.append('rr')
+           if ((inter_path[i]=='-x') and (inter_path[k]=='+y')):
               path_to_zigbee.append('r')
            if((inter_path[i]=='-x') and (inter_path[k]=='-y')) or ((inter_path[i]=='+x') and (inter_path[k]=='+y')):
               path_to_zigbee.append('l')
            if((inter_path[i]=='+y') and (inter_path[k]=='-y')) or ((inter_path[i]=='+x') and (inter_path[k]=='-x')):
-              path_to_zigbee.append('l')
-              path_to_zigbee.append('l')
+              path_to_zigbee.append('ll')
+              
            if((inter_path[i]=='-y') and (inter_path[k]=='+y')) or ((inter_path[i]=='-x') and (inter_path[k]=='+x')):
-              path_to_zigbee.append('r')
-              path_to_zigbee.append('r')
+              path_to_zigbee.append('rr')
+              
            path_to_zigbee.append('f')
         
     print(inter_path)
@@ -172,19 +175,23 @@ def vrep(s,e,place):
     new=""
     for i in path_to_zigbee:
         new+=i
-    new+='q'
       
 
 
     if (place==0): 
+        del inter_path[:]
         return new
     
     elif (place==1): 
         ZigSerial.flush()
-        if ((inter_path[len(inter_path)-1]=='-x') or (inter_path[len(inter_path)-1]=='+y')):
+        if ((inter_path[len(inter_path)-1]=='-x'):
              pick_path="ll"
-        elif ((inter_path[len(inter_path)-1]=='+x') or (inter_path[len(inter_path)-1]=='-y')):
+        if (inter_path[len(inter_path)-1]=='+y')):
              pick_path="rr"
+        if ((inter_path[len(inter_path)-1]=='+x')):
+             pick_path="r" 
+        if(inter_path[len(inter_path)-1]=='-y')):
+             pick_path="l"
         ZigSerial.write(new+pick_path+"fglfrqy"+"\n") 
         del inter_path[:]
         inter_path.append('+y')
@@ -201,7 +208,8 @@ def vrep(s,e,place):
         Zigreceive.flush()
         time.sleep(8)
         return Zigreceive.read()
-    
+
+vrep(0,10,1)
 
  
               
