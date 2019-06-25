@@ -2,11 +2,12 @@
 import time
 import pprint
 from client-1.py import*
+from zig-serial.py import*
 
 #Stores current location of the bot in the arena
 current_location = 0
 drop_location = 4
-bot_axis = '+y'
+#bot_axis = '+y'
 
 #transaction_pool: Contains the flag of cells where the bot has to go
 ''' -1 -> No box present in the cell
@@ -30,7 +31,7 @@ all_box_finished = True
 my_own_box_are_finished = True
 
 ###Test this delay
-time.sleep(5)
+#time.sleep(5)
 
 init_blockchain()
 
@@ -49,14 +50,14 @@ while True:
         if my_own_box_are_finished == False:
             min_dist = 32767
             for item in own_box_index_list:
-                dist = len(vrep(current_location, item, 'path'))
+                dist = len(vrep(current_location, item, 0))
                 if dist < min_dist:
                     min_dist = dist
                     box_number = item
         else:
             min_dist = 32767
             for item in help_box_index_list:
-                dist = len(vrep(current_location, item, 'path'))
+                dist = len(vrep(current_location, item, 0))
                 if dist < min_dist:
                     min_dist = dist
                     box_number = item
@@ -73,10 +74,10 @@ while True:
             print('Already flag changed(0 -> 1);Not added to blockchain; Bot is still at base node; Searching flag for other boxes...')
         else:
             print('Added to blockchain; Picking and placing the box...')
-            if vrep(current_location, box_number, 'pick') == 'h':
+            if vrep(current_location, box_number, 1) == 'h':
                 print('Box picked')
                 current_location = box_number
-                if vrep(current_location, drop_location, 'place') == 'h':
+                if vrep(current_location, drop_location, 2) == 'h':
                     print('Box placed')
                     current_location = drop_location
         print('Searching other boxes...')
