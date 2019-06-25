@@ -58,4 +58,4 @@ def init_blockchain():
     s1.connect(('127.0.0.1', 12345))
     nodes_config()
 
-s1.close()
+#s1.close()

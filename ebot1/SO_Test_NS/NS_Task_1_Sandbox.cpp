@@ -25,9 +25,6 @@ void forward_wls(unsigned char node)
         d=getProxSensorDistance(1);
         dl=getProxSensorDistance(2);
         dr=getProxSensorDistance(3);
-        printf("%d\t",dl);
-        printf("%d\t",d);
-        printf("%d\n",dr);
         if(((d>0)&&(d<100))|((dl>0)&&(dl<100))|((dr>0)&&(dr<100)))
           {
           stop();

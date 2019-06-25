@@ -102,19 +102,20 @@ def astar(maze, start, end):
             open_list.append(child)
 
 
-def vrep(s,e,pick):
+def vrep(s,e,place):
 
     ZigSerial = serial.Serial("/dev/pts/20",9600)
     Zigreceive=serial.Serial("/dev/pts/22",9600)
     
     maze = [[0, 0, 0, 0],
             [0, 0, 0, 0],
-            [0, 0, 0, 0],stra
+            [0, 0, 0, 0],
             [0, 0, 0, 0], 
             ]
     
     start=(s/4,s%4)
     end=(e/4,e%4)
+    print(str(start)+"and  "+str(end))
  
     path_to_zigbee=[]
     path = astar(maze, start, end)
@@ -123,7 +124,7 @@ def vrep(s,e,pick):
     for i in path:
         maze[i[0]][i[1]]=5;
 
-    for i in range(0,9):
+    for i in range(0,4):
         print(maze[i])
         print("\n")
 
@@ -185,21 +186,21 @@ def vrep(s,e,pick):
         elif ((inter_path[len(inter_path)-1]=='+x') or (inter_path[len(inter_path)-1]=='-y')):
              pick_path="rr"
         ZigSerial.write(new+pick_path+"fglfrqy"+"\n") 
-        inter_path.clear()
+        del inter_path[:]
         inter_path.append('+y')
         Zigreceive.flush()
         time.sleep(8)
-        return Zigreceive.read())
+        return Zigreceive.read()
     
     elif (place==2): 
         ZigSerial.flush()
         ZigSerial.write(new+"pqy"+"\n")
         c=inter_path[len(inter_path)-1]
-        inter_path.clear()
+        del inter_path[:]
         inter_path.append(c)
         Zigreceive.flush()
         time.sleep(8)
-        return Zigreceive.read())
+        return Zigreceive.read()
     
 
  

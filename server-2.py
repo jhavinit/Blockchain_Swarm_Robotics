@@ -2,7 +2,7 @@ import datetime
 import hashlib
 import json
 from uuid import uuid4
-from urllib.parse import urlparse
+#from urllib.parse import urlparse
 import socket
 from _thread import *
 import threading

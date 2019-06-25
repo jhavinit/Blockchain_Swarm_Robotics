@@ -1,8 +1,8 @@
 #main.py: Responsible for executing function calls and control flow for BOT
 import time
 import pprint
-from client-1.py import*
-from zig-serial.py import*
+from client1 import*
+from zigserial import*
 
 #Stores current location of the bot in the arena
 current_location = 0
@@ -36,7 +36,7 @@ my_own_box_are_finished = True
 init_blockchain()
 
 def check_all_box_finished():
-    if len(own_block_index_list) != 0:
+    if len(own_box_index_list) != 0:
         my_own_box_are_finished = False
         all_box_finished = False
     if my_own_box_are_finished == True:

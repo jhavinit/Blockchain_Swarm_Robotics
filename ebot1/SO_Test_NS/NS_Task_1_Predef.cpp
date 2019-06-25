@@ -9,7 +9,7 @@ simxUChar *lineSensorOutput = new simxUChar[3](), *colorSensorOutput = new simxU
 simxFloat detected_point[3] = { 0,0,0 }; 
 unsigned int color_sensor_pulse_count = 0;
 simxInt dir_left = 0, dir_right = 0, vis_error, prox_error, place_handle = -3;
-simxInt *res = new simxInt[2](),*resVis = new simxInt[2](), *obs1 = new simxInt[1](), *obs2 = new simxInt[1](), *obs3 = new simxInt[1](), *leftJoint = new simxInt[1](), *rightJoint = new simxInt[1](), *lineSensor = new simxInt[1](), *colorSensor = new simxInt[1](), *eBot = new simxInt[1](),*eBot0=new simxInt[1](), *cuboid0 = new simxInt[1](), *cuboid = new simxInt[1](), *cuboid3 = new simxInt[1](), *cuboid4 = new simxInt[1](), *proxSensor = new simxInt[1](), *visionSensor = new simxInt[1](),*proxSensor2 = new simxInt[1](),*proxSensor1 = new simxInt[1]();
+simxInt *res = new simxInt[2](),*resVis = new simxInt[2](), *obs1 = new simxInt[1](), *obs2 = new simxInt[1](), *obs3 = new simxInt[1](), *leftJoint = new simxInt[1](), *rightJoint = new simxInt[1](), *lineSensor = new simxInt[1](), *colorSensor = new simxInt[1](), *eBot = new simxInt[1](),*eBot0=new simxInt[1](), *cuboid0 = new simxInt[1](), *cuboid = new simxInt[1](), *cuboid3 = new simxInt[1](), *cuboid4 = new simxInt[1](),*cuboid5 = new simxInt[1](), *proxSensor = new simxInt[1](), *visionSensor = new simxInt[1](),*proxSensor2 = new simxInt[1](),*proxSensor1 = new simxInt[1]();
 simxFloat linear_velocity_left = 0, linear_velocity_right = 0;
 int vis_i,vis_j,vis_k;
 const simxFloat posObv[3] = { 50,50,50 }, posPlaceRel[3] = { 0.125, 0, 0 };
@@ -32,6 +32,8 @@ void getObjectHandles(void)
         simxGetObjectHandle(ID, "cuboid", cuboid, simx_opmode_oneshot_wait);
         simxGetObjectHandle(ID, "cuboid0", cuboid0, simx_opmode_oneshot_wait);
         simxGetObjectHandle(ID, "cuboid1", cuboid3, simx_opmode_oneshot_wait);
+        simxGetObjectHandle(ID, "cuboid2", cuboid4, simx_opmode_oneshot_wait);
+        simxGetObjectHandle(ID, "cuboid3", cuboid5, simx_opmode_oneshot_wait);
 }
 
 void setJointVelocities(int opmode)
