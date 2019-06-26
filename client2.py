@@ -57,5 +57,3 @@ def add_transaction_to_blockchain(transaction_pool, box_number, my_own_box_are_f
 def init_blockchain():
     s1.connect(('127.0.0.1', 12346))
     nodes_config()
-
-s1.close()

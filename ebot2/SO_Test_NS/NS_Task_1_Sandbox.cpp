@@ -34,7 +34,7 @@ void forward_wls(unsigned char node)
         
 	else if (leftSensor < 200 && midSensor >= 200 && rightSensor < 200 && !flag)
 		{       
-                        printf("f\n");
+                       
 			forward();
 			_delay_ms(1);
 			stop();
@@ -42,7 +42,7 @@ void forward_wls(unsigned char node)
 		
 		else if ((leftSensor >= 200 && midSensor >= 200 && rightSensor < 200 && !flag) || (leftSensor >= 200 && midSensor < 200 && rightSensor < 200 && !flag))
 		{        
-                        printf("sl\n");
+                       
 			soft_left();
 			_delay_ms(1);
 			stop();
@@ -50,7 +50,7 @@ void forward_wls(unsigned char node)
 		
 		else if ((leftSensor < 200 && midSensor >= 200 && rightSensor >= 200 && !flag) || (leftSensor < 200 && midSensor < 200 && rightSensor >= 200 && !flag))
 		{       
-                        printf("sr\n");
+                        
 			soft_right();
 			_delay_ms(1);
 			stop();

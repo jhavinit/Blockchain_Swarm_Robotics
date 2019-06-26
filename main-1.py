@@ -5,7 +5,7 @@ from client1 import*
 from zigserial import*
 
 #Stores current location of the bot in the arena
-current_location = 0
+current_location = 1
 drop_location = 4
 #bot_axis = '+y'
 

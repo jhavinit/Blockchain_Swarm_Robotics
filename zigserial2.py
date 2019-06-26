@@ -1,6 +1,8 @@
 import serial
 import time
 
+state='-y'
+
 class Node():
     """A node class for A* Pathfinding"""
 
@@ -99,27 +101,21 @@ def astar(maze, start, end):
             open_list.append(child)
 
 
-def main():
-
-    ZigSerial = serial.Serial("/dev/pts/23",9600)
-    Zigreceive=serial.Serial("/dev/pts/31",9600)
+def vrep(s,e,place):
+    global state
     
-    maze = [[1, 1, 1, 0, 0, 0, 1, 1, 1],
-            [1, 1, 1, 0, 0, 0, 1, 1, 1],
-            [1, 1, 1, 0, 0, 0, 1, 1, 1],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [1, 1, 1, 0, 0, 0, 1, 1, 1],
-            [1, 1, 1, 0, 0, 0, 1, 1, 1],
-            [1, 1, 1, 0, 0, 0, 1, 1, 1],
+    ZigSerial = serial.Serial("/dev/pts/35",9600)
+    Zigreceive=serial.Serial("/dev/pts/37",9600)
+    
+    maze = [[0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0], 
             ]
-
-    start = (0,4)
-    end = (7,4)
-    flag=0
-    z=0
-    inter_path=['+y']
+    inter_path=[]
+    start=(s/4,s%4)
+    end=(e/4,e%4)
+    print(str(start)+"and  "+str(end))
     path_to_zigbee=[]
     path = astar(maze, start, end)
     print(path)
@@ -127,7 +123,7 @@ def main():
     for i in path:
         maze[i[0]][i[1]]=5;
 
-    for i in range(0,9):
+    for i in range(0,4):
         print(maze[i])
         print("\n")
 
@@ -139,16 +135,19 @@ def main():
            break
         if(path[i][0]<path[k][0]):
           char='-y' 
-          inter_path.append(char)
         elif(path[i][0]>path[k][0]):
           char='+y'
-          inter_path.append(char)
         elif(path[i][1]<path[k][1]):
           char='+x'
-          inter_path.append(char)
         elif(path[i][1]>path[k][1]):
           char='-x'
-          inter_path.append(char)
+        inter_path.append(char)
+
+    if (state==inter_path[0]):
+         path_to_zigbee.append('f')
+    else:
+         inter_path.insert(0,state)
+
 
     for i,val in enumerate(inter_path):
         k=i+1
@@ -157,34 +156,86 @@ def main():
         if(inter_path[i]==inter_path[k]):
             path_to_zigbee.append('f')
         else:  
-           if((inter_path[i]=='-y') and (inter_path[k]=='+x')) or ((inter_path[i]=='+y') and (inter_path[k]=='-x')):
+           
+           if((inter_path[i]=='-y') and (inter_path[k]=='+x')):
+              path_to_zigbee.append('ll')
+           if ((inter_path[i]=='+y') and (inter_path[k]=='-x')):
               path_to_zigbee.append('l')
            if((inter_path[i]=='-y') and (inter_path[k]=='-x')) or ((inter_path[i]=='+y') and (inter_path[k]=='+x')):
               path_to_zigbee.append('r')
-           if((inter_path[i]=='+x') and (inter_path[k]=='-y')) or ((inter_path[i]=='-x') and (inter_path[k]=='+y')):
+           if((inter_path[i]=='+x') and (inter_path[k]=='-y')):
+              path_to_zigbee.append('rr')
+           if((inter_path[i]=='-x') and (inter_path[k]=='+y')):
               path_to_zigbee.append('r')
            if((inter_path[i]=='-x') and (inter_path[k]=='-y')) or ((inter_path[i]=='+x') and (inter_path[k]=='+y')):
               path_to_zigbee.append('l')
+           if((inter_path[i]=='+y') and (inter_path[k]=='-y')) or ((inter_path[i]=='+x') and (inter_path[k]=='-x')):
+              path_to_zigbee.append('ll')
+              
+           if((inter_path[i]=='-y') and (inter_path[k]=='+y')) or ((inter_path[i]=='-x') and (inter_path[k]=='+x')):
+              path_to_zigbee.append('rr')
            path_to_zigbee.append('f')
-        
         
     print(inter_path)
     print(path_to_zigbee)
     new=""
     for i in path_to_zigbee:
         new+=i
-    new+='q'
-       
-    ZigSerial.flush()
-    ZigSerial.write("ffrffqy"+"\n") 
-    Zigreceive.flush()
-    time.sleep(8)
-    print(Zigreceive.read())
+    
+      
 
- 
+
+    if (place==0): 
+        del inter_path[:]
+        return new
+    
+    elif (place==1): 
+        ZigSerial.flush()
+        if ((inter_path[len(inter_path)-1]=='-x')):
+             pick_path="ll"
+        elif ((inter_path[len(inter_path)-1]=='-y')):
+             pick_path="l"
+        elif ((inter_path[len(inter_path)-1]=='+y')):
+             pick_path="rr"
+        elif ((inter_path[len(inter_path)-1]=='+x')):
+             pick_path="r"
+        ZigSerial.write(new+pick_path+"fglfrqy"+"\n") 
+        del inter_path[:]
+        state='+y'
+        Zigreceive.flush()
+        time.sleep(8)
+        return Zigreceive.read()
+    
+    elif (place==2): 
+        ZigSerial.flush()
+        if(e==4):
+          if ((inter_path[len(inter_path)-1]=='+y')):
+            new+="l"
+            state='-x'
+          if ((inter_path[len(inter_path)-1]=='-y')):
+            new+="r"
+            state='-x'
+        if(e==7):
+          if ((inter_path[len(inter_path)-1]=='+y')):
+            new+="r"
+            state='+x'
+          if ((inter_path[len(inter_path)-1]=='-y')):
+            new+="l"
+            state='+x'
+        ZigSerial.write(new+"pqy"+"\n")
+        c=inter_path[len(inter_path)-1]
+        del inter_path[:]
+        
+        Zigreceive.flush()
+        time.sleep(8)
+        return Zigreceive.read()
+
+   
+
+
               
    
-main()
+
          
             
             
