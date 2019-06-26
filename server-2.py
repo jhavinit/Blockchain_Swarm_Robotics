@@ -142,7 +142,8 @@ def mine_block(own_bot):
     network_list = blockchain.get_node_list()
     ip_list = blockchain.get_ip_list()
     if own_bot == 0:
-        time.sleep(1) 
+        print('Mining now...')
+        time.sleep(3) 
     previous_block = blockchain.get_previous_block()
     previous_proof = previous_block['proof']
     proof = blockchain.proof_of_work(previous_proof)
@@ -207,9 +208,20 @@ def for_server(c):
     m1.connect(('127.0.0.1',12345))
     m1.send(b'iam_first')                                                 #change this if does not works
     m1.close()
+    
+    m1 = socket.socket()
+    m1.connect(('127.0.0.1',12347))
+    m1.send(b'iam_first')                                                 #change this if does not works
+    m1.close()
+    
     replace_chain()
     m1 = socket.socket()
     m1.connect(('127.0.0.1',12345))
+    m1.send(b'unset_iam_first')                                                 #change this if does not works
+    m1.close()
+
+    m1 = socket.socket()
+    m1.connect(('127.0.0.1',12347))
     m1.send(b'unset_iam_first')                                                 #change this if does not works
     m1.close()
     a_dict = get_chain()
@@ -255,8 +267,12 @@ def for_client(c):
             nodes1 = []
             ips1 = []
             mem1 = c.recv(4096).decode('utf-8');
+            mem2 = c.recv(4096).decode('utf-8');
+            mem3 = c.recv(4096).decode('utf-8');
             mem4 = c.recv(4096).decode('utf-8');
             nodes1.append(mem1)
+            nodes1.append(mem2)
+            ips1.append(mem3)
             ips1.append(mem4)
             a_dict  = connect_node(nodes1,ips1)
                            
