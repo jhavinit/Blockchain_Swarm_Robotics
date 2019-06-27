@@ -8,6 +8,9 @@ while True:
     s1 = socket.socket()
     s1.connect(('127.0.0.1', 12345))
 
+    s2 = socket.socket()
+    s2.connect(('127.0.0.1', 12346))
+
     time.sleep(5)
     message = """<!DOCTYPE html>
 <html lang="en">
@@ -25,10 +28,22 @@ while True:
     background-color: #007bff!important;
     width: 625px;
 }
-.container {
-    margin-left:350px;
+.container1 {
+    width: 625px;
 }
-</style><body><center><br><button type="button" class="btn btn-success"><h1 style="font-weight:bolder;font-family:Courier"><span style="color:red;font-weight:bolder;font-family:Courier"> e-Yantra </span>Blockchain Demonstration</h1></button><br><br></center>"""
+
+.connect_1 {
+margin-left:280px;
+width: 625px;}
+
+.connect_2 {
+margin-left:280px;
+width: 625px;}
+
+.container2 {
+    width: 625px;
+}
+</style><body><center><br><button type="button" class="btn btn-default"><h1 style="font-weight:bolder;font-family:Courier"><span style="color:white;font-weight:bolder;font-family:Courier;background-color:red"> e-Yantra </span> &nbsp Blockchain Demonstration</h1></button><br><br></center><hr><div class="container-fluid"><div class="row">"""
     s1.send(b'display')
     b = b''
     tmp = s1.recv(1048576)
@@ -38,8 +53,9 @@ while True:
     #print(chain)
     message_length = len(chain)
     counter = 0
+    message = message + """<div class="col-md-6"><center><button type="button" class="btn btn-danger"><h2 style="font-weight:bolder;font-family:Courier">BOT-1</h2></button></center><br>"""
     while counter < message_length:
-        message = message + """<div class="container">"""
+        message = message + """<div class="container1">"""
         message = message + """<div class="card bg-primary text-white"><div class="card-body">"""
         message = message + """<p>Index : """ + str(chain[counter]['index']) + """</p><p>Timestamp : """ + str(chain[counter]['timestamp']) + """</p><p>Proof : """ + str(chain[counter]['proof']) + """</p><p>Previous Hash : """ + str(chain[counter]['previous_hash']) + """</p>"""
         message = message + """<p>Transactions: """
@@ -48,9 +64,35 @@ while True:
             while counter1 < len(chain[counter]['transactions'][0]):
                 message = message + str(chain[counter]['transactions'][0][counter1]) + """ """ 
                 counter1 = counter1 + 1
-        message = message + """</p></div></div></div><br><center style="font-weight:bolder"><h1>||</h1></center><br>"""
+        message = message + """</p></div></div></div><br><h1 class="connect_1" style="font-weight:bolder">||</h1><br>"""
         counter = counter + 1
-    message = message + """</body></html>"""
+    message = message + """</div>"""
+
+    s2.send(b'display')
+    b = b''
+    tmp = s2.recv(1048576)
+    b += tmp
+    d = json.loads(b.decode('utf-8'))
+    chain = d['chain']
+    #print(chain)
+    message_length = len(chain)
+    counter = 0
+    message = message + """<div class="col-md-6"><center><button type="button" class="btn btn-danger"><h2 style="font-weight:bolder;font-family:Courier">BOT-2</h2></button></center><br>"""
+    while counter < message_length:
+        message = message + """<div class="container2">"""
+        message = message + """<div class="card bg-success text-white"><div class="card-body">"""
+        message = message + """<p>Index : """ + str(chain[counter]['index']) + """</p><p>Timestamp : """ + str(chain[counter]['timestamp']) + """</p><p>Proof : """ + str(chain[counter]['proof']) + """</p><p>Previous Hash : """ + str(chain[counter]['previous_hash']) + """</p>"""
+        message = message + """<p>Transactions: """
+        counter1 = 0
+        if len(chain[counter]['transactions']) != 0:
+            while counter1 < len(chain[counter]['transactions'][0]):
+                message = message + str(chain[counter]['transactions'][0][counter1]) + """ """ 
+                counter1 = counter1 + 1
+        message = message + """</p></div></div></div><br><h1 class="connect_2" style="font-weight:bolder">||</h1><br>"""
+        counter = counter + 1
+    message = message + """</div>"""
+    
+    message = message + """</div></div></body></html>"""
     #print('message:')
     #print(message)
     f = open('display_blockchain.html','w')
@@ -58,3 +100,4 @@ while True:
     f.write(message)
     f.close()
     s1.close()
+    s2.close()
