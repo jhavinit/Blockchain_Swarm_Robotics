@@ -230,7 +230,12 @@ def for_unset_iam_first(c):
     
 def for_iamfirst(c):
     blockchain.set_iamfirst()
-    
+
+def for_display(c):
+    a_dict = get_chain()
+    b = json.dumps(a_dict).encode('utf-8')
+    c.send(b)
+       
 def for_client(c):
     while 1:
         var1 = c.recv(4096)
@@ -289,6 +294,8 @@ while True:
         start_new_thread(for_iamfirst, (c,))
     if x == b'unset_iam_first':
         start_new_thread(for_unset_iam_first, (c,))
+    if x == b'display':
+        start_new_thread(for_display, (c,))
 c.close()
 
 
