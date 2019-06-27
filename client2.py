@@ -7,11 +7,11 @@ s1 = socket.socket()
 
 def nodes_config():        
     port_list_1_mem = '12345'
-    port_list_2_mem = '12347'
+    #port_list_2_mem = '12347'
     ip_list_1_mem = '127.0.0.1'
-    ip_list_2_mem = '127.0.0.1'
-    port_list = [port_list_1_mem,port_list_2_mem]                              
-    ip_list = [ip_list_1_mem,ip_list_2_mem]
+    #ip_list_2_mem = '127.0.0.1'
+    port_list = [port_list_1_mem]                              
+    ip_list = [ip_list_1_mem]
     s1.send(b'client')
     time.sleep(1)
     s1.send(b'add_nodes')

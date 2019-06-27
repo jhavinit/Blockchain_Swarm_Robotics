@@ -6,7 +6,7 @@ from zigserial2 import*
 
 #Stores current location of the bot in the arena
 current_location = 0
-drop_location = 7
+drop_location = 4
 #bot_axis = '+y'
 
 #transaction_pool: Contains the flag of cells where the bot has to go
@@ -15,12 +15,12 @@ drop_location = 7
     1 -> Box is not present in the cell and it has been placed at the dropping point
 '''
 ##After ArUco markers are detected through overhead camera 'transaction_pool' is updated with respective flags 
-transaction_pool = [-1,-1,0,0,-1,-1,-1,-1,-1,-1,0,-1,-1,0,-1,0]
+transaction_pool = [-1,-1,0,0,-1,-1,-1,-1,0,-1,-1,-1,-1,0,-1,0]
 
 ##Binary classification code based upon general algorithm or classification algorithms(ML)
 
 #own_box_index_list: List that contains index numbers from 'transaction_pool' list; where the bot has to choose from first 
-own_box_index_list = [10,13,15]
+own_box_index_list = [13,8,15]
 
 #help_box_index_list: List that contains index numbers from 'transaction_pool' list; where the bot has to choose from after it finishes its own boxes
 help_box_index_list = [2,3]

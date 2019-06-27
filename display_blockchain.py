@@ -5,11 +5,11 @@ import pprint
 
 while True:
     
-    s1 = socket.socket()
-    s1.connect(('127.0.0.1', 12345))
+    s6 = socket.socket()
+    s6.connect(('127.0.0.1', 12345))
 
-    s2 = socket.socket()
-    s2.connect(('127.0.0.1', 12346))
+    s7 = socket.socket()
+    s7.connect(('127.0.0.1', 12346))
 
     time.sleep(5)
     message = """<!DOCTYPE html>
@@ -44,12 +44,13 @@ width: 625px;}
     width: 625px;
 }
 </style><body><center><br><button type="button" class="btn btn-default"><h1 style="font-weight:bolder;font-family:Courier"><span style="color:white;font-weight:bolder;font-family:Courier;background-color:red"> e-Yantra </span> &nbsp Blockchain Demonstration</h1></button><br><br></center><hr><div class="container-fluid"><div class="row">"""
-    s1.send(b'display')
+    s6.send(b'display')
     b = b''
-    tmp = s1.recv(1048576)
+    tmp = s6.recv(1048576)
     b += tmp
     d = json.loads(b.decode('utf-8'))
     chain = d['chain']
+    s6.close()
     #print(chain)
     message_length = len(chain)
     counter = 0
@@ -68,13 +69,14 @@ width: 625px;}
         counter = counter + 1
     message = message + """</div>"""
 
-    s2.send(b'display')
+    s7.send(b'display')
     b = b''
-    tmp = s2.recv(1048576)
+    tmp = s7.recv(1048576)
     b += tmp
     d = json.loads(b.decode('utf-8'))
     chain = d['chain']
     #print(chain)
+    s7.close()
     message_length = len(chain)
     counter = 0
     message = message + """<div class="col-md-6"><center><button type="button" class="btn btn-danger"><h2 style="font-weight:bolder;font-family:Courier">BOT-2</h2></button></center><br>"""
@@ -99,5 +101,3 @@ width: 625px;}
     print('Writing to html file...')
     f.write(message)
     f.close()
-    s1.close()
-    s2.close()

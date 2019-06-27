@@ -21,14 +21,14 @@ void forward_wls(unsigned char node)
 		midSensor = ADC_Conversion(2);
 		rightSensor = ADC_Conversion(3);
                 
-                
+                printf("%d %d %d\n",leftSensor,midSensor,rightSensor);
         d=getProxSensorDistance(0);
         dl=getProxSensorDistance(1);
         dr=getProxSensorDistance(2);
         if(((d>0)&&(d<100))|((dl>0)&&(dl<100))|((dr>0)&&(dr<100)))
           {
           stop();
-          _delay_ms(3000);
+        
           flag=1;
           }
         
@@ -56,7 +56,7 @@ void forward_wls(unsigned char node)
 			stop();
 		}
 		
-		else if (leftSensor >= 200 && midSensor >= 200 && rightSensor >= 200 && !flag)
+		else if (leftSensor == 255 && midSensor == 255 && rightSensor == 255 && !flag)
 		{       
                         
 			nodeReached++;
@@ -197,33 +197,33 @@ void Task_1_1()
 		case 'f':
                         printf("forward\n");
 			forward_wls(1);
-			_delay_ms(1);
+			_delay_ms(1000);
 			break;
 		case 'l':
                         printf("left\n");
 			left_turn_wls();
-			_delay_ms(1);
+			_delay_ms(1000);
 			break;
 		case 'r':
                         printf("right\n");
 			right_turn_wls();
-			_delay_ms(1);
+			_delay_ms(1000);
 			break;
                 case 'g':
                         printf("pick\n");
                         pick();
-                        _delay_ms(50);
+                        _delay_ms(1000);
                         break;
                 case 'p':
                         printf("place\n");
                         place();
-                        _delay_ms(50);
+                        _delay_ms(1000);
                         break;
 		case 'q':
                         printf("finish\n");
 			stop();
                         write_wd();
-                        _delay_ms(50);
+                        _delay_ms(1000);
 	                
 			break;
 		default:
