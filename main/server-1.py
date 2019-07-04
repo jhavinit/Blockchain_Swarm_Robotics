@@ -8,7 +8,7 @@ from _thread import *
 import threading
 import time
 import pprint
-
+#s: object for creating socket endpoint as a server
 s = socket.socket()		 
 print ("Socket successfully created")
 port = 12345				
@@ -17,6 +17,7 @@ print (("Socket binded to %s") %(port))
 s.listen(5)	 
 print ("Socket is listening")
 
+#Blockhchain class that will contain all the functions for server handling 
 class Blockchain:
 
     def __init__(self):
@@ -30,6 +31,7 @@ class Blockchain:
         self.get_chain_lock = False
         self.iamfirst = False
     
+    #This function creates a block and add it to blockchain
     def create_block(self, proof, previous_hash):
         block = {'index': len(self.chain) + 1,
                  'timestamp': str(datetime.datetime.now()),
@@ -39,10 +41,10 @@ class Blockchain:
         self.chain.append(block)
         self.transactions = []
         return block
-
+    #This function returns the index of the last block of blockchain
     def get_previous_block(self):
         return self.chain[-1]
-
+    
     def proof_of_work(self, previous_proof):
         new_proof = 1
         check_proof = False
