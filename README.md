@@ -1,6 +1,5 @@
-# 
 ```diff
-+ Blockchain_Swarm_Robotics
+# Blockchain_Swarm_Robotics
 ```
 ### Contributions are most welcome!
 ## Objective:
