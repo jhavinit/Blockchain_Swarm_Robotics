@@ -4,11 +4,14 @@
 
 
 
-
-
-
-
-
+/*
+*
+* Function Name:  forward_wls()
+* Input: numberof nodes
+* Output: void
+* Logic: To make the bot go forward the number specified by the input parameters and also looks for obstacles before it moves forward  
+* Example Call: forward_wls(1)
+*/
 
 void forward_wls(unsigned char node)
 {       int d,dl,dr;
@@ -22,14 +25,14 @@ void forward_wls(unsigned char node)
 		rightSensor = ADC_Conversion(3);
                 
         
-        d=getProxSensorDistance(1);
+        d=getProxSensorDistance(1);                   //3 proximity sensors in the front to look for obstacles
         dl=getProxSensorDistance(2);
         dr=getProxSensorDistance(3);
         if(((d>0)&&(d<100))|((dl>0)&&(dl<100))|((dr>0)&&(dr<100)))
           {
           stop();
           
-          flag=1;
+          flag=1;                                    // flag bit to look for if the obstacles has gone or not
           }
         
 	else if (leftSensor < 200 && midSensor >= 200 && rightSensor < 200 && !flag)
@@ -159,26 +162,12 @@ void right_turn_wls(void)
 	stop();
 }
 
-
-
-/*
-*
-* Function Name: Square
-* Input: void
-* Output: void
-* Logic: Use this function to make the robot trace a square path on the arena
-* Example Call: Square();
-*/
-void Square(void)
-{
-}
-
 /*
 *
 * Function Name: Task_1_1
 * Input: void
 * Output: void
-* Logic: Use this function to encapsulate your Task 1.1 logic
+* Logic: To follow the simple commands given by the serial port to be followed and sends a acknowledgement bit 'h' after completion
 * Example Call: Task_1_1();
 */
 void Task_1_1()
@@ -222,7 +211,7 @@ void Task_1_1()
 		case 'q':
                         printf("finish\n");
 			stop();
-                        write_wd();
+                        write_wd();                                                         //over task so send 'h'
                         _delay_ms(1000);
 	                
 			break;
