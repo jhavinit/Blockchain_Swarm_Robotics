@@ -33,14 +33,14 @@ forage all the blocks to a common place.
 
 ### How to run code on a local system?
 Step 1: Fork the repo: [https://github.com/jhavinit/Blockchain_Swarm_Robotics](https://github.com/jhavinit/Blockchain_Swarm_Robotics)<br/>
-Step 2: Go inside /main ...all the files required are inside main folder
-Step 3: Install Vrep v_3.6.1 (Tested in ubuntu 16.04 LTS)
-Step 4: Make sure to have python > 3.5.4 and a text editor for editing C, C++ (gedit) and  python files(IDLE py:3.5.4)
+Step 2: Go inside /main ...all the files required are inside main folder<br/>
+Step 3: Install Vrep v_3.6.1 (Tested in ubuntu 16.04 LTS)<br/>
+Step 4: Make sure to have python > 3.5.4 and a text editor for editing C, C++ (gedit) and  python files(IDLE py:3.5.4)<br/>
 Step 5: Make the virtual serial ports for 2 bots (4 terminals in total) (Refer Medium article for setting virtual port: [https://medium.com/@karthiks1701/virtual-serial-ports-hack-for-communication-between-local-scripts-883fda0f60f])
-Step 6: Open the scene in Vrep: Go to vrep and open scene (filename: dual_bot.ttt or fin_rep.ttt(recommended)) 
-Step 7: Run server-1.py and server-2.py
-Step 8: Run the cpp exe files that are in the debug folder of ebot1 and ebot2
-Step 9: Run the main-1.py and main-2.py
+Step 6: Open the scene in Vrep: Go to vrep and open scene (filename: dual_bot.ttt or fin_rep.ttt(recommended))<br/> 
+Step 7: Run server-1.py and server-2.py<br/>
+Step 8: Run the cpp exe files that are in the debug folder of ebot1 and ebot2<br/>
+Step 9: Run the main-1.py and main-2.py<br/>
 Step 10: One can observe the results in the Vrep
 
 ## Result video:
