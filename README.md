@@ -35,7 +35,7 @@ forage all the blocks to a common place.
 
 ### How to run code on a local system?
 Step 1: Fork the repo: [https://github.com/jhavinit/Blockchain_Swarm_Robotics](https://github.com/jhavinit/Blockchain_Swarm_Robotics)<br/>
-Step 2: Go inside /main ...all the files required are inside main folder<br/>
+Step 2: Go inside /main directory in your system (All the files required to run the project are inside "main" folder)<br/>
 Step 3: Install Vrep v_3.6.1 (Tested in ubuntu 16.04 LTS)<br/>
 Step 4: Make sure to have python > 3.5.4 and a text editor for editing C, C++ (gedit) and  python files(IDLE py:3.5.4)<br/>
 Step 5: Make the virtual serial ports for 2 bots (4 terminals in total) (Refer Medium article for setting virtual port: [https://medium.com/@karthiks1701/virtual-serial-ports-hack-for-communication-between-local-scripts-883fda0f60f])
