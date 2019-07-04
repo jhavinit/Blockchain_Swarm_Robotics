@@ -1,3 +1,7 @@
+/*
+File to call the Task_1_1()
+Which makes a blocking call to the serial port so that it waits for the path.
+  */
 #include "NS_Task_1_Sandbox.h"
 
 #include <csignal>
