@@ -1,3 +1,8 @@
+#* Filename: server-1.py
+#* Project: Blockchain_Swarm_Robotics
+#* Functions: mine_block(own_bot), get_chain, add_transaction, set_iamfirst, unset_iamfirst, is_valid, for_client, for_server, for_display 
+#* Global Variables: s, port
+
 import datetime
 import hashlib
 import json
@@ -8,7 +13,7 @@ from _thread import *
 import threading
 import time
 import pprint
-#s: object for creating socket endpoint as a server
+
 s = socket.socket()		 
 print ("Socket successfully created")
 port = 12345				
@@ -17,9 +22,15 @@ print (("Socket binded to %s") %(port))
 s.listen(5)	 
 print ("Socket is listening")
 
-#Blockhchain class that will contain all the functions for server handling 
 class Blockchain:
-
+   
+    '''
+    * Function Name: __init__(self)
+    * Input: self
+    * Output: Initialize variables with deafult values
+    * Logic:  Initialize values so that they can be used in beggining without any pre-changed value
+    * Example Call: Called auto. when object is initaialized
+    '''
     def __init__(self):
         self.chain = []
         self.transactions = []
@@ -31,7 +42,13 @@ class Blockchain:
         self.get_chain_lock = False
         self.iamfirst = False
     
-    #This function creates a block and add it to blockchain
+    '''
+    * Function Name: create_block
+    * Input: self:provided by blockchain object calling the function, proof: Nonce value for block, previous_hash: Hash value of previous block in chain
+    * Output: Returns "block", block: Dictionary that contain the data about the block added in blockhain
+    * Logic:  It creates the block using params and then append this to a " chain list " then unsets the transactions[] because all transactions are now added to chain. 
+    * Example Call: blockchain.create_block(self, proof, previous_hash)
+    '''
     def create_block(self, proof, previous_hash):
         block = {'index': len(self.chain) + 1,
                  'timestamp': str(datetime.datetime.now()),
@@ -41,10 +58,26 @@ class Blockchain:
         self.chain.append(block)
         self.transactions = []
         return block
-    #This function returns the index of the last block of blockchain
+
+    '''
+    * Function Name: get_previous_block
+    * Input: self:provided by blockchain object calling the function
+    * Output: Returns index number of last block added
+    * Logic: It returns the last added block's index  
+    * Example Call: get_previous_block(self)
+    '''
+
     def get_previous_block(self):
         return self.chain[-1]
-    
+
+    '''
+    * Function Name: proof_of_work
+    * Input: self:provided by blockchain object calling the function, previous_proof: Previous block's Nonce value
+    * Output: Returns new_proof
+    * Logic: Currently the complexity during mining is set to 4 zeros and new proof or Nonce is calculated based on previous blocks nonce  
+    * Example Call: blockchain.proof_of_work(previous_proof)
+    '''
+
     def proof_of_work(self, previous_proof):
         new_proof = 1
         check_proof = False
@@ -55,11 +88,29 @@ class Blockchain:
             else:
                 new_proof += 1
         return new_proof
-    
+
+    '''
+    * Function Name: hash
+    * Input: self:provided by blockchain object calling the function, block: Dictionary that contains all the data present in a block
+    * Output: Returns hashlib.sha256(encoded_block).hexdigest() ie. the hash of the block
+    * Logic: This uses SHA256 (from hashlib library) for calculating the 'hash' for the block; based on all the block's data  
+    * Example Call: blockchain.hash(block)
+    '''
+
     def hash(self, block):
         encoded_block = json.dumps(block, sort_keys = True).encode()
         return hashlib.sha256(encoded_block).hexdigest()
-    
+
+    '''
+    * Function Name: is_chain_valid
+    * Input: self:provided by blockchain object calling the function, chain: It is the complete blockchain till that state.
+    * Output: Returns boolean value.
+    * Logic: Checks 2 criteria: 1st: Every blocks 'previous_hash' should be equal to the previous blocks hash. 
+    *							2nd: Every blocks hash should satisfy the 0000 complexity
+    *		 If satisfied then True else False is returned
+    * Example Call: blockchain.is_chain_valid(chain)
+    '''
+
     def is_chain_valid(self, chain):
         previous_block = chain[0]
         block_index = 1
@@ -75,7 +126,14 @@ class Blockchain:
             previous_block = block
             block_index += 1
         return True
-    
+
+    '''
+    * Function Name: add_transaction
+    * Input: self:provided by blockchain object calling the function, transaction_pool_list: Contains the arena configration in 0, -1, 1 list patterns.
+    * Output: None
+    * Logic: 
+    * Example Call: blockchain.add_transaction(transaction_pool_list)
+    '''    
     def add_transaction(self,transaction_pool_list):
         self.transactions.append(transaction_pool_list)
         
