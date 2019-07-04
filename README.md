@@ -32,7 +32,7 @@ forage all the blocks to a common place.
 8. main: It contains all the files and folders collectively in one folder from which one can run the project directly. 
 
 ### How to run code on a local system?
-Step 1: Fork the repo: [https://github.com/jhavinit/Blockchain_Swarm_Robotics](https://github.com/jhavinit/Blockchain_Swarm_Robotics)
+Step 1: Fork the repo: [https://github.com/jhavinit/Blockchain_Swarm_Robotics](https://github.com/jhavinit/Blockchain_Swarm_Robotics)<br/>
 Step 2: Go inside /main ...all the files required are inside main folder
 Step 3: Install Vrep v_3.6.1 (Tested in ubuntu 16.04 LTS)
 Step 4: Make sure to have python > 3.5.4 and a text editor for editing C, C++ (gedit) and  python files(IDLE py:3.5.4)
