@@ -3,10 +3,7 @@
 Contributions are most welcome!
 ```
 ## Objective:
-To create an Immutable and Decentralised System to store
-and analyse plant vitals of a eFSI farm using Iota's Tangle.
-To develop a Blockchain based Decentralised Framework for a
-two bot foraging system using V-rep and python.
+To develop a Blockchain based Decentralised Framework for a 2 - bot foraging system using V-rep and python. There will be two bots in the arena and they both are on the same blockchain network. They bot will be assigned fixed number of boxes to pick and place, BUT if they finish their own boxes they can go to help the other bot and pick other bot's boxes (<-main concept of swarm robotics). In the Result video below: Bot#1 which is faster is assigned blue boxes and bot#2 is assigned green boxes to pick and place. Bot#1 completes placing its boxes and then goes for Bot#2's box for picking and placing. All the bots interaction is through Blockchain and it is completely decentralized. PoW is used for mining the box(block in blockchain). The boxes kept are mined by other bot when it wants to help pick that box which was assigned to some other bot(It can get some amount as a result of a smart contract). Decentralization makes the whole process secure, consistent and fast. 
 
 ## System:
 In an arena where blocks are kept in random cells,relatively
