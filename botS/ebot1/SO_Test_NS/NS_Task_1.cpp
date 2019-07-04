@@ -22,15 +22,15 @@ void signalHandler(int param)
 int main(int argc, char* argv[])
 {       
       
-	signal(SIGTERM, signalHandler);
-	init();
-	std::thread t_1(threadCalls);	
+	signal(SIGTERM, signalHandler);  //looks for keyboard interrupts
+	init();                          //makes connection with vrep server over the port mentioned in predef.cpp
+	std::thread t_1(threadCalls);	 //creates various threads
         stop();
        
 
         while(1)
         {	
-          Task_1_1();
+          Task_1_1();                        
         }	
 
 	threadStop();
