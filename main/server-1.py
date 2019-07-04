@@ -283,6 +283,7 @@ def for_unset_iam_first(c):
 def for_iamfirst(c):
     blockchain.set_iamfirst()
 
+#This function thread gets assigned only for display_blockchain.py that helps to bypass get_chain lock
 def for_display(c):
     a_dict = get_chain()
     b = json.dumps(a_dict).encode('utf-8')
@@ -334,7 +335,8 @@ def for_client(c):
             ips1.append(mem2)
             #ips1.append(mem4)
             a_dict  = connect_node(nodes1,ips1)
-                           
+
+#This while loop will always be running and assigning threads for any request that it encounters                            
 while True: 
     c, addr = s.accept() 
     x = c.recv(4069)
