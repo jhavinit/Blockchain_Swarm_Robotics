@@ -1,3 +1,8 @@
+/* File where all the neccesary initialisations and the functions are defined for the bot to perform the simple commands */
+/* The port number in the initial function has to be changed and a dummy object shud have a script with a call to start the server unless it is the default 19998 where the server neednt be started*/
+
+
+
 #include "NS_Task_1_Predef.h"
 
 
@@ -288,7 +293,7 @@ void _delay_ms(unsigned int ms)
 
 
 
-void video_init()
+void video_init()                      //change the port here
 {
 	ID_vid = initial(19998);
 	//cout << "Reached init" << endl;
