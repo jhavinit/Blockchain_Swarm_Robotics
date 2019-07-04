@@ -104,8 +104,8 @@ def astar(maze, start, end):
 def vrep(s,e,place):
     global state
     
-    ZigSerial = serial.Serial("/dev/pts/27",9600)
-    Zigreceive=serial.Serial("/dev/pts/29",9600)
+    ZigSerial = serial.Serial("/dev/pts/29",9600)
+    Zigreceive=serial.Serial("/dev/pts/31",9600)
     
     maze = [[0, 0, 0, 0],
             [0, 0, 0, 0],

@@ -1,13 +1,28 @@
+/*
+*
+* File Name: NS_Task_1_sandbox.cpp
+  Functions forward_wls(),left_turn_wls(),right_turn_wls(),Task_1_1()
+  gloabal variables:none
+*
+*/
+
+
+
+
+
 #include "NS_Task_1_Sandbox.h"
 #include "serialread.h"
 #include "string.h"
 
-
-
-
-
-
-
+/*
+*
+* Function Name: forward_wls()
+* Input: char node 
+* Output: none
+* Logic: Uses white line sensors to go forward the number of nodes mentioned while also loking for obstacles
+* Example Call: forward_wls(2)
+*
+*/
 
 
 void forward_wls(unsigned char node)
@@ -22,14 +37,14 @@ void forward_wls(unsigned char node)
 		rightSensor = ADC_Conversion(3);
                 
                 printf("%d %d %d\n",leftSensor,midSensor,rightSensor);
-        d=getProxSensorDistance(0);
+        d=getProxSensorDistance(0);                                                     /*3 proximity  sensors looking out for obstacles*/  
         dl=getProxSensorDistance(1);
         dr=getProxSensorDistance(2);
         if(((d>0)&&(d<100))|((dl>0)&&(dl<100))|((dr>0)&&(dr<100)))
           {
           stop();
         
-          flag=1;
+          flag=1;                                                                       /*flag variable for obstacles*/ 
           }
         
 	else if (leftSensor < 200 && midSensor >= 200 && rightSensor < 200 && !flag)
@@ -161,17 +176,7 @@ void right_turn_wls(void)
 
 
 
-/*
-*
-* Function Name: Square
-* Input: void
-* Output: void
-* Logic: Use this function to make the robot trace a square path on the arena
-* Example Call: Square();
-*/
-void Square(void)
-{
-}
+
 
 /*
 *
@@ -186,7 +191,7 @@ void Task_1_1()
         
         char p[50];
 	
-        strcpy(p,fun());
+        strcpy(p,fun());                       /*gets the path to be followed and copies to the string p*/  
         printf("%s",p);
 	
 	for (int i=0;  p[i]!= 'y'; ++i)

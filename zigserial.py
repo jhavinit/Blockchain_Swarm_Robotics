@@ -1,7 +1,25 @@
-import serial
-import time
+"""A script to do the following:
+1. Calling vrep-(communication)
+2. Pathplanning(A star algorithm):
 
-state='-y'
+file name zigserial.py
+functions :astar(),vrep().
+Global Variables: state. """
+
+
+
+import serial        #for communicating serially between c++ and python
+import time          #for delays
+
+state='-y'           #stores the orientation of the path before every call
+
+
+"""function name : class Node().
+   parameters: parent and position.
+   return parameters:none.
+   logic: creates a node for the a star algorithm to work on.
+   function call:Node(none,end),end should be in coordinate system."""
+
 
 class Node():
     """A node class for A* Pathfinding"""
@@ -16,6 +34,13 @@ class Node():
 
     def __eq__(self, other):
         return self.position == other.position
+
+"""function name: astar().
+   parameters: maze,start,end.
+   logic: Gives the coordinates to be traversed across the maze{a list of obstacles(1) and nodes(0)} to traverse the shortest path from start to the end node.
+   return parameters: A 2-d list.
+   function call:astar([[0,0,0],
+                        [0,0,0]],(0,0),(2,2)}"""
 
 
 def astar(maze, start, end):
@@ -100,36 +125,45 @@ def astar(maze, start, end):
             # Add the child to the open list
             open_list.append(child)
 
+"""function name:vrep().
+   parameters:s,e,place.(start,end,place flag(tells wheteher to pick,place or just the path))
+   return parameters:An acknowledgement bit when the traversing is done.
+   logic:It converts the coordinates into path(simple commands like pick,place,left,right etc) and provides two functionalities picking a block and placing it 
+   function call:vrep(0,9,1),start and end cells of how the bot to traverse"""
+
 
 def vrep(s,e,place):
     global state
     
-    ZigSerial = serial.Serial("/dev/pts/33",9600)
-    Zigreceive=serial.Serial("/dev/pts/35",9600)
+    ZigSerial = serial.Serial("/dev/pts/23",9600) #opening one virtual port for sending data 
+    Zigreceive=serial.Serial("/dev/pts/25",9600)  #opening another virtual port for receiving data
     
-    maze = [[0, 0, 0, 0],
+    maze = [[0, 0, 0, 0],                         #maze for traversing 
             [0, 0, 0, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0], 
             ]
-    inter_path=[]
-    start=(s/4,s%4)
+    
+    inter_path=[]                                 #inter_path to hold the direction to be taken like go to south,north etc.without considering the orientation
+    
+    start=(s/4,s%4)                               #converting indices to coordinates of the maze (specific to the maze)
     end=(e/4,e%4)
-    print(str(start)+"and  "+str(end))
-    path_to_zigbee=[]
-    path = astar(maze, start, end)
-    print(path)
+    
+    #print(str(start)+"and  "+str(end))
+    path_to_zigbee=[]                             #path to be sent to vrep
+    path = astar(maze, start, end)                #path from astar in coordinates
+    #print(path)
 
     for i in path:
-        maze[i[0]][i[1]]=5;
+        maze[i[0]][i[1]]=5;                     
 
     for i in range(0,4):
-        print(maze[i])
+        print(maze[i])                             #representing the coordinates to be followed with number 5 for the visual representation 
         print("\n")
 
     print(path[0][0])
     
-    for i,val in enumerate(path):
+    for i,val in enumerate(path):                  #converting to directions(north,south,left,right)
         k=i+1
         if(i==len(path)-1):
            break
@@ -149,7 +183,7 @@ def vrep(s,e,place):
          inter_path.insert(0,state)
 
 
-    for i,val in enumerate(inter_path):
+    for i,val in enumerate(inter_path):            #converting to commands based on the directions(like f,r,l,p,g etc)
         k=i+1
         if(i==len(inter_path)-1):
             break
@@ -185,11 +219,11 @@ def vrep(s,e,place):
       
 
 
-    if (place==0): 
+    if (place==0):                                                  #the path is displayed                               
         del inter_path[:]
         return new
     
-    elif (place==1): 
+    elif (place==1):                                                #pick path is added to the path 
         ZigSerial.flush()
         if ((inter_path[len(inter_path)-1]=='-x')):
              pick_path="ll"
@@ -204,9 +238,9 @@ def vrep(s,e,place):
         state='+y'
         Zigreceive.flush()
         time.sleep(8)
-        return Zigreceive.read()
+        return Zigreceive.read()                                    #wait till u receive "h" before completing the work
     
-    elif (place==2): 
+    elif (place==2):                                                #place path based on the end location
         ZigSerial.flush()
         if(e==4):
           if ((inter_path[len(inter_path)-1]=='+y')):
@@ -230,7 +264,7 @@ def vrep(s,e,place):
         
         Zigreceive.flush()
         time.sleep(8)
-        return Zigreceive.read()
+        return Zigreceive.read()                                    #wait till you receive "h" before completing the path
 
    
 

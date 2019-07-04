@@ -14,7 +14,7 @@
                void write_wd(void)
                {
                 int wd;          
-       	        wd = open("/dev/pts/30",O_RDWR |O_NOCTTY);						
+       	        wd = open("/dev/pts/32",O_RDWR |O_NOCTTY);						
         	if(wd == -1)	
             	   printf("\n  Error! in Opening /dev/pts/32");
         	else
@@ -46,7 +46,7 @@
                {
                int rd;
                 
-        	rd = open("/dev/pts/26",O_RDWR | O_NOCTTY);						
+        	rd = open("/dev/pts/28",O_RDWR | O_NOCTTY);						
         	if(rd == -1)	
             	   printf("\n  Error! in Opening /dev/pts/34");
         	else

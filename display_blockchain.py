@@ -54,7 +54,7 @@ width: 625px;}
     #print(chain)
     message_length = len(chain)
     counter = 0
-    message = message + """<div class="col-md-6"><center><button type="button" class="btn btn-danger"><h2 style="font-weight:bolder;font-family:Courier">BOT-1</h2></button></center><br>"""
+    message = message + """<div class="col-md-6"><center><button type="button" class="btn btn-danger"><h2 style="font-weight:bolder;font-family:Courier">BOT-2</h2></button></center><br>"""
     while counter < message_length:
         message = message + """<div class="container1">"""
         message = message + """<div class="card bg-primary text-white"><div class="card-body">"""
@@ -79,7 +79,7 @@ width: 625px;}
     s7.close()
     message_length = len(chain)
     counter = 0
-    message = message + """<div class="col-md-6"><center><button type="button" class="btn btn-danger"><h2 style="font-weight:bolder;font-family:Courier">BOT-2</h2></button></center><br>"""
+    message = message + """<div class="col-md-6"><center><button type="button" class="btn btn-danger"><h2 style="font-weight:bolder;font-family:Courier">BOT-1</h2></button></center><br>"""
     while counter < message_length:
         message = message + """<div class="container2">"""
         message = message + """<div class="card bg-success text-white"><div class="card-body">"""
