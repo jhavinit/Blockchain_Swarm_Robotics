@@ -10,7 +10,7 @@ import time
 import pprint
 
 s = socket.socket()		 
-print ("Socket successfully created")
+print ("Socket successfully created.")
 port = 12345				
 s.bind(('', port))		 
 print (("Socket binded to %s") %(port)) 
