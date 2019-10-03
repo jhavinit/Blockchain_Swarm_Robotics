@@ -35,7 +35,7 @@ send_dict = {'block_details':transaction_pool_block,
 time.sleep(3)
 b = json.dumps(send_dict).encode('utf-8')
 s.send(b)
-print('Initial state of the block c2 is added on blockchain')
+print('Initial state of the block c2 is added on blockchains')
 
 def update_block_from_blockchain(transaction_pool_block):
     exit_now = False
