@@ -88,7 +88,7 @@ def traverse_path():
         print("Moving till node is detected...")
         print("Node detected!")
         j = 1
-        print('---------------------------------------------------------------')
+        print('####-----------------------------------------------------------')
         print(transaction_pool_block)
         while j < len(transaction_pool_block):
             if transaction_pool_block[j] == 0:
