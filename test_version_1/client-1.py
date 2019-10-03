@@ -26,7 +26,7 @@ for port_mem in port_list:
 for ip_mem in ip_list:
     s.send(ip_mem.encode('utf-8'))
     time.sleep(1)
-print('Nodes are connected')
+print('Both the Nodes are connected')
 
 #time.sleep(5)
 
