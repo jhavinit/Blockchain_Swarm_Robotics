@@ -161,7 +161,7 @@ def traverse_path():
         else:
             print("All the box are placed by all bots!!...no need for help")
             inp = input("Task finished")
-            #movement code to pick and place the box on different city with collisison checking
+            #movement code to pick and place the box on different city with collisison checking .
             
 while True:
         traverse_path()
