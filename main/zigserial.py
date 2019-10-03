@@ -1,3 +1,4 @@
+#code for zigserial
 """A script to do the following:
 1. Calling vrep-(communication)
 2. Pathplanning(A star algorithm):
