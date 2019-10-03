@@ -26,7 +26,7 @@ for port_mem in port_list:
 for ip_mem in ip_list:
     s.send(ip_mem.encode('utf-8'))
     time.sleep(1)
-print('Nodes are connected')
+print('Both the Nodes are connected')
 
 #time.sleep(5)
 
@@ -88,7 +88,7 @@ def traverse_path():
         print("Moving till node is detected...")
         print("Node detected!")
         j = 1
-        print('---------------------------------------------------------------')
+        print('####-----------------------------------------------------------')
         print(transaction_pool_block)
         while j < len(transaction_pool_block):
             if transaction_pool_block[j] == 0:
